@@ -1,0 +1,34 @@
+{
+    "model_type": "resnet18_celeb",
+    "num_epochs": 20,
+    "batch_size": 8,
+    "learning_rate": 5e-05,
+    "weight_decay": 0.0001,
+    "gamma": 2.0,
+    "image_size": [
+        224,
+        224
+    ],
+    "mean": [
+        0.5752,
+        0.4495,
+        0.4012
+    ],
+    "std": [
+        0.2086,
+        0.1911,
+        0.1827
+    ],
+    "class_names": [
+        "surprise",
+        "fear",
+        "disgust",
+        "happy",
+        "sad",
+        "anger",
+        "natural"
+    ],
+    "best_val_acc": 84.31771894093686,
+    "test_acc": 86.08213820078227,
+    "model_save_path": "fer_resnet18_best.pth"
+}

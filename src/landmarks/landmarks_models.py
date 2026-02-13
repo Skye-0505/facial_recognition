@@ -36,14 +36,14 @@ warnings.filterwarnings('ignore')
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # 5点数据集路径配置
-FIVEPOINT_DATA_DIR = os.path.abspath(os.path.join(CURRENT_DIR, './data/fivepoint'))
+FIVEPOINT_DATA_DIR = os.path.abspath(os.path.join(CURRENT_DIR, '../../data/landmarks/fivepoint'))
 FIVEPOINT_TRAIN_ZIP_URL = "http://mmlab.ie.cuhk.edu.hk/archive/CNN/data/train.zip"
 FIVEPOINT_TRAIN_ANNOTATION = os.path.join(FIVEPOINT_DATA_DIR, 'trainImageList.txt')
 FIVEPOINT_TEST_ANNOTATION = os.path.join(FIVEPOINT_DATA_DIR, 'testImageList.txt')
 FIVEPOINT_IMG_DIR = os.path.join(FIVEPOINT_DATA_DIR, './')
 
 # WFLW数据集路径配置
-WFLW_DATA_DIR = os.path.abspath(os.path.join(CURRENT_DIR, './data/wflw'))
+WFLW_DATA_DIR = os.path.abspath(os.path.join(CURRENT_DIR, '../../data/landmarks/wflw'))
 WFLW_IMG_DIR = os.path.join(WFLW_DATA_DIR, 'WFLW_images')
 WFLW_ANNOTATIONS_DIR = os.path.join(WFLW_DATA_DIR, 'WFLW_annotations')
 WFLW_TRAIN_ANNOTATION = os.path.join(
@@ -56,9 +56,8 @@ WFLW_TEST_ANNOTATION = os.path.join(
 )
 
 # 模型保存路径
-MODEL_SAVE_DIR = os.path.abspath(os.path.join(CURRENT_DIR, './models'))
-WFLW_MODEL_PATH = os.path.join(MODEL_SAVE_DIR, 'wflw_model.pth')
-FIVEPOINT_MODEL_PATH = os.path.join(MODEL_SAVE_DIR, 'fivepoint_model.pth')
+WFLW_MODEL_PATH = os.path.abspath(os.path.join(CURRENT_DIR, 'wflw_model.pth'))
+FIVEPOINT_MODEL_PATH = os.path.abspath(os.path.join(CURRENT_DIR, 'fivepoint_model.pth'))
 
 # 输出图像保存路径 - 修改为../../outputs/landmarks
 OUTPUT_DIR = os.path.abspath(os.path.join(CURRENT_DIR, '../../outputs/landmarks'))
@@ -70,7 +69,6 @@ PREDICTIONS_DIR = os.path.join(OUTPUT_DIR, 'predictions')
 # 创建必要的目录
 os.makedirs(FIVEPOINT_DATA_DIR, exist_ok=True)
 os.makedirs(WFLW_DATA_DIR, exist_ok=True)
-os.makedirs(MODEL_SAVE_DIR, exist_ok=True)
 os.makedirs(WFLW_IMG_DIR, exist_ok=True)
 os.makedirs(WFLW_ANNOTATIONS_DIR, exist_ok=True)
 
@@ -360,7 +358,7 @@ class FaceLandmarksDataset(Dataset):
         # 处理图像路径 - 转换为绝对路径
         self.df['image_path'] = self.df['image_path'].str.replace('\\', '/')
         self.df['image_path'] = self.df['image_path'].apply(
-            lambda x: os.path.join(self.img_dir, os.path.basename(x))
+            lambda x: os.path.join(self.img_dir, x)
         )
 
     def __len__(self) -> int:
@@ -1079,7 +1077,6 @@ if __name__ == "__main__":
     print(f"输出目录: {OUTPUT_DIR}")
     print(f"5点数据集目录: {FIVEPOINT_DATA_DIR}")
     print(f"WFLW数据集目录: {WFLW_DATA_DIR}")
-    print(f"模型保存目录: {MODEL_SAVE_DIR}")
     print("=" * 50)
     
     # 训练5点模型
@@ -1094,4 +1091,3 @@ if __name__ == "__main__":
     print(f"├── WFLW数据集: {WFLW_VIS_DIR}")
     print(f"├── WFLW分析: {WFLW_ANALYSIS_DIR}")
     print(f"└── 预测结果: {PREDICTIONS_DIR}")
-    print(f"💾 模型已保存至: {MODEL_SAVE_DIR}")
